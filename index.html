@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1.0">
+	<title>(무)AIA Vitality Diamond Wealth</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+<script>
+var inputFlag = true;
+// 이미지
+$(function() {
+    var sChecked = $(window).width() > 1060 ? "s2" : "s1";
+	var dChecked = $(window).width() < 1060 ? "s2" : "s1";
+
+	imgReplace();
+
+	function imgReplace(){
+		$("#AIA_wrap img").each(function(){
+			if( sChecked == "s1" ){ $(this).attr("src", $(this).attr("data-mo-src")); }
+            else { $(this).attr("src", $(this).attr("data-pc-src")); }
+		});
+    }
+
+	$(window).resize(function(){
+        var width=window.innerWidth;
+
+        $("#AIA_wrap img").each(function(){
+            if (width < 1060){ $(this).attr("src", $(this).attr("data-mo-src")); }
+            else { $(this).attr("src", $(this).attr("data-pc-src")); }
+        });
+    });
+
+    $('.formBox.mo form input').on('click', function () {
+        inputFlag = false;
+        setTimeout(function () { inputFlag = true; }, 1500);
+    });
+});
+// 플로팅
+$(window).on('scroll resize', function() {
+    var scrollTop = 0;
+    scrollTop = $(document).scrollTop();
+    btn();
+    function btn() {
+        if (scrollTop > 700) { $('.formBox.pc').addClass('on');}
+		else { $('.formBox.pc').removeClass('on');}
+		if (scrollTop > 4200) { $('.formBox.pc').removeClass('on');}
+    }
+	btn2();
+    function btn2() {
+        if(window.innerHeight > $("section.bottom")[0].getBoundingClientRect().top) {
+            $('.formBox.mo').removeClass('on');
+        } else if(inputFlag) {
+            if ($("#AIA_wrap > section:nth-child(3)")[0].getBoundingClientRect().top <= 0) {
+                $('.formBox.mo').addClass('on');
+                $('.formBox.mo form').css({'display':'none'});
+                // $('.formBox.mo.dummy').css({'display':'block'});
+            } else {
+                $('.formBox.mo').removeClass('on');
+                $('.formBox.mo form').css({'display':'block'});
+                // $('.formBox.mo.dummy').css({'display':'none'});
+            }
+        }
+    }
+    // $('.formBox.mo.dummy').removeClass('on');
+    // $('.formBox.mo.dummy form').css({'display':'block'});
+});
+
+$(function() {
+        $('.formBox.mo h2').on('click', function() {
+			$('.formBox.mo.on form').slideToggle(100);
+        });
+		$('.notice .btn').on('click', function() {
+			$('.notice .in').slideToggle(100);
+        });
+});
+
+//팝업
+function openPopup(selector) {
+    $(selector).before('<div id="layer-mask"></div>').fadeIn(150);
+	$(selector).find('.close, .popBtn').one('click', function() {
+		$('#layer-mask').remove();
+		$(selector).css({'display': 'none'});
+	});
+}
+
+    </script>
+<style>
+    @font-face { font-family: 'SCDream'; font-weight: normal; src: url("font/SCDream3.woff") format('woff');}
+    /*reset*/
+    * {margin: 0;padding: 0;}
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;}
+    a {color: inherit; text-decoration: inherit;}
+    li {list-style: none;}
+    button {background: none; border: none;}
+    img {vertical-align: middle;}
+    select::-ms-expand {display:none}
+    input, textarea, select{-webkit-appearance: none; -webkit-border-radius: 0;}
+    input::placeholder { color: #fff; }
+
+    /* LayOut */
+    #AIA_wrap {position:relative; width:100%; margin:0 auto; font-family: 'SCDream'; overflow: hidden}
+    #AIA_wrap .inner {width: 1060px; margin: 0 auto; position: relative;}
+    #AIA_wrap header {background: #fff;height: 75px; line-height: 75px;}
+    #AIA_wrap header .inner {display: flex; justify-content: space-between}
+    #AIA_wrap header a {display: inline-block}
+	#AIA_wrap header p {display: inline-block}
+	#AIA_wrap header a.call {display: none;}
+    /* visual */
+    #AIA_wrap .visual {background: #e6ecec}
+    #AIA_wrap .visual .top {float: right;}
+    /* con */
+    #AIA_wrap section {padding: 60px 0;transition: all 0.3s; overflow: hidden}
+    #AIA_wrap section img {margin-bottom: 30px; transition: all 0.3s}
+    #AIA_wrap section img:last-child {margin-bottom: 0}
+    #AIA_wrap section.c img:nth-child(2){float: right}
+    #AIA_wrap section.d img:nth-child(2){float: right}
+    #AIA_wrap section.notice  {padding: 0; text-align: center}
+	#AIA_wrap section.notice .btn {padding: 15px 0;}
+	#AIA_wrap section.notice .in {display: none;}
+    #AIA_wrap section.footer .sns {display: none}
+    #AIA_wrap section.footer .copy {display: none}
+
+    /* formBox */
+	.formBox.mo {display: none;}
+    .formBox {background: #d31145; width: 380px; padding: 40px 30px 10px; box-sizing: border-box; border-radius: 30px; z-index: 1000;}
+	.formBox.pc {position: absolute; right: 0; top: 0;}
+    .formBox h2 {text-align: center; margin-bottom: 10px}
+    .formBox.pc h2 img:nth-child(1),.formBox.pc a img:nth-child(1) {display: inline-block}
+    .formBox.pc h2 img:nth-child(2),.formBox.pc a img:nth-child(2) {display: none; }
+    .formBox ul li {border-bottom: 1px solid #fff;  padding: 16px 0}
+    .formBox ul li.flex {display: flex}
+    .formBox a {margin-top: 40px; display: block}
+    .formBox input {font-family: 'SCDream'; background: none; width: 100%;  box-sizing: border-box; font-size: 20px; font-weight: 100; border: none;  outline: none; border-radius: 0; color: #fff}
+    .formBox select {font-family: 'SCDream'; background: none; width: 100%;  box-sizing: border-box; font-size: 20px; font-weight: 100; border: none;  outline: none; border-radius: 0; color: #fff;background: url(img/w20220126_selet.png) no-repeat right 0 center;}
+    .formBox select  option {color: #000}
+
+    /* formBox.on */
+    .formBox.pc.on {position: fixed; right: 30px; top: 20%; width: 230px; padding: 25px 20px; border-radius: 20px}
+    .formBox.pc.on h2 img:nth-child(1),.formBox.pc.on a img:nth-child(1) {display: none}
+    .formBox.pc.on h2 img:nth-child(2),.formBox.pc.on a img:nth-child(2) {display: inline-block; width: 100%}
+    .formBox.pc.on ul li {padding: 12px 0}
+    .formBox.pc.on input ,.formBox.pc.on select{font-size: 16px;}
+    .formBox.pc.on button {margin-top: 20px}
+    .formBox.pc.on input[type="radio"] + label span {display:inline-block;width:28px; height:28px; line-height: 28px; font-size: 13px}
+
+	/* bottom */
+	.bottom .formBox {position: static; width: 700px; margin: 0 auto; padding: 0; text-align: center;}
+	.bottom .formBox h2 {margin-bottom: 30px}
+	.bottom .formBox ul {display: flex; justify-content: space-between; flex-wrap: wrap;}
+	.bottom .formBox ul li {width: 46%; margin-bottom: 10px}
+
+    /* radio */
+    input[type="radio"] {display:none; }
+    input[type="radio"] + label {display: block; position: relative; z-index: 2;margin-left: 5px}
+    input[type="radio"] + label span {display:inline-block;width:30px; height:30px; vertical-align:middle; background: #444;text-align: center; line-height: 30px; border-radius: 10px; font-size: 14px; color: #fff;cursor: pointer}
+    input[type="radio"]:checked + label span {background: #fff; color: #000}
+
+    /* check */
+    .check {display:block; margin: 20px 0 0}
+    .check:hover {cursor: pointer}
+    .check input[type=checkbox] {opacity: 0; position: absolute; width: 15px;height: 15px; }
+    .check input[type=checkbox] + .tit{ position: relative; z-index: 11; display: inline-block; font-weight: bold; font-size: 17px; color: #111;padding-left: 26px;  font-weight: bold;; font-family: 'SCDream';}
+    .check input[type=checkbox] + .tit::before{content: ''; display: inline-block; width: 19px; height: 19px; position: absolute; top: 1px; left: 0; border-radius: 100%; border: 1px solid #ccc; background: #fff}
+    .check input[type=checkbox]:checked + .tit::before{ outline: 1px solid #ccc;border: 3px solid #fff; background: #d31145; box-sizing: border-box;width: 19px; height: 19px; left: 1px; top: 2px}
+
+    /* popup */
+    #layer-mask {position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;}
+    .popup {position: fixed; width: 100%; height: 100vh; left: 0; top: 0;font-family: 'Noto Sans KR', sans-serif; display: none; z-index: 9999}
+    .popup .box {width: 100%; max-width: 450px; background: #fff; left: 50%; top: 50%; transform: translate(-50%,-50%); position: absolute; padding: 25px 25px 20px; box-sizing: border-box;border: 6px solid #d31145; border-radius: 30px; box-sizing: border-box;}
+    .popup .box .close {position: absolute; width: 26px; right: 20px; top: 20px; display: block;}
+	.popup .box a img {width: 100%}
+	.popup .box h1 img{width: 75%}
+	.popup .box .text {height: 150px; overflow: auto; padding: 10px; border: 1px solid #ccc; background: #f3f3f4; margin: 15px 0 20px; font-size: 12px; text-align: justify; line-height: 1.4; color: #242424}
+	.popup .box .text h3,.popup .box .text h4 {margin: 5px 0; font-size: 13px;}
+	.popup .box .text b {margin: 5px 0; display: block;}
+	.popup .box .text span {color: #d31145;font-weight: bold;}
+	#popup02 {text-align: center;}
+	#popup02 .box {padding-top: 30px; max-width: 400px}
+	#popup02 .box h1 img {width: 60%}
+	#popup02 .box a {display: block; margin-top: 30px}
+
+    /* 반응형 */
+		@media screen and (max-width : 1450px) {
+			.formBox.pc.on {width: 200px; right: 0}
+			.formBox.pc.on input, .formBox.pc.on select {font-size: 14px;}
+		}
+		@media screen and (max-width : 1200px) {
+			 .formBox.on.pc {display: none}
+		}
+    @media screen and (max-width : 1060px) {
+		#AIA_wrap header {position: fixed; z-index: 100; width: 100%}
+        #AIA_wrap header .inner {width: 95%}
+        #AIA_wrap .inner {width: 90%}
+        #AIA_wrap img {width: 100%}
+        #AIA_wrap section {padding: 8% 0}
+        #AIA_wrap section img {margin-bottom: 10px}
+		#AIA_wrap .visual {padding-top: 22%}
+        #AIA_wrap .visual .top {float: none; width: 80%; margin-left: 2%; margin-bottom: 20px}
+        #AIA_wrap section.c {padding-bottom: 0}
+        #AIA_wrap section.notice .btn {padding: 0}
+		#AIA_wrap section.footer  {padding-bottom: 22%}
+        #AIA_wrap section.footer .inner {width: 100%; text-align: center}
+        #AIA_wrap section.footer .sns {display: flex; justify-content: space-between; width: 45%; margin: 10% auto}
+        #AIA_wrap section.footer .sns li {width: 20%;}
+        #AIA_wrap section.footer .sns li img {width: 100%}
+        #AIA_wrap section.footer .copy {display: block;width: 80%; margin: 0 auto}
+		#AIA_wrap .visual {padding-bottom: 0}
+		.formBox.pc {display: none}
+		.formBox.mo {display: block; position: static; width: 100%; border-radius: 0; background: none; padding: 0;}
+		.formBox.mo h2 {margin-bottom: 0}
+		.formBox.mo form{ padding: 0 8% 5%; background: #d31145}
+		.formBox.mo ul li {padding: 10px 0}
+		.formBox.mo ul li.flex p {position: relative; width: 33px;height: 33px; margin-left: 5px}
+		.formBox.mo ul li.flex p input[type="radio"] + label span{width: 33px;height: 33px;line-height: 33px;}
+		.formBox.mo a {margin-top: 20px;}
+		.formBox input ,.formBox select {font-size: 14px;}
+
+		/* .formBox.mo  */
+		.formBox.mo.on {bottom: 0;left: 0; position: fixed; z-index: 1000; opacity: 1; transition: position 0.3s; touch-action: none;}
+		.formBox.mo.on form {display: none;}
+
+		#AIA_wrap .bottom { border-radius: 15px 15px 0 0; margin-top: -4%; padding: 4% 0 5%}
+		.bottom .formBox {width: 100%; padding: 0 8%;}
+		.bottom .formBox h2 {width: 85%; margin: 0 auto 10px;}
+		.bottom .formBox ul li {width: 100%;padding: 10px 0; margin-bottom: 0}
+		.bottom .formBox ul li input[type="radio"] {position: absolute; width: 33px;height: 33px; opacity: 0; display: block; z-index: 100}
+		.bottom .formBox ul li input[type="radio"] + label span{width: 33px;height: 33px;line-height: 33px;}
+		.bottom .formBox a {margin-top: 20px;}
+    }
+    @media screen and (max-width : 700px) {
+        #AIA_wrap header a {width: 40%}
+        #AIA_wrap header a.call {width: 55%; display: block;}
+		#AIA_wrap header p {display: none;}
+    }
+    @media screen and (max-width : 560px) {
+        #AIA_wrap header {height: 50px; line-height: 50px}
+		.popup .box {width:90%; padding: 20px}
+		.check input[type=checkbox] + .tit {font-size: 15px}
+    }
+	@media screen and (max-width : 320px) {
+		#AIA_wrap header {height: 45px; line-height: 45px}
+		.popup .box {border: 4px solid #d31145; border-radius: 20px;    padding: 20px 15px 15px;}
+		.check input[type=checkbox] + .tit {font-size: 13px; padding-left: 23px}
+		.check input[type=checkbox] + .tit::before{content: ''; display: inline-block; width: 16px; height: 16px; position: absolute; top: -2px; left: 0; border-radius: 100%; border: 1px solid #ccc; background: #fff}
+	    .check input[type=checkbox]:checked + .tit::before{ outline: 1px solid #ccc;border: 3px solid #fff; background: #d31145; box-sizing: border-box;width: 17px; height: 17px; left: 1px; top: -1px}
+		.popup .box {width: 85%}
+		.popup .box p {height: 140px; margin: 10px 0 15px}
+		.popup .box .close {position: absolute; width: 18px; right: 15px; top: 15px;}
+		.popup .box .text {height: 80px;}
+    }
+</style>
+</head>
+<body>
+    <div id="AIA_wrap">
+        <header>
+            <div class="inner">
+                <a href="#"><img src="img/w20220126_header_1.png" alt=""></a>
+				<p><img src="img/w20220126_header_2.png" alt=""></p>
+                <a href="tel:1600-0880" class="call"><img src="img/w20220126_header_2.png" alt=""></a>
+            </div>
+        </header>
+        <section class="visual">
+            <div class="inner">
+               <img src="img/w20220126_visual_2.png" data-pc-src="img/w20220126_visual_2.png" data-mo-src="img/m20220126_visual_2.png" alt="">
+               <img src="img/w20220126_visual_3.png" data-pc-src="img/w20220126_visual_3.png" data-mo-src="img/m20220126_visual_3.png" alt="">
+               <!-- PC 폼 -->
+               <div class="formBox pc">
+                    <h2><img src="img/w20220126_topForm_1.png" alt=""><img src="img/w20220126_float_1.png" alt=""></h2>
+                    <form id="" name="" method="post">
+                         <ul>
+                             <li class="flex">
+                                 <input type="text" name="rn_cust_name" placeholder="이름" autocomplete="off" maxlength="">
+                                 <input type="radio" id="vote_r1" name="rn_sex" value="M"><label for="vote_r1"><span>남</span></label>
+                                 <input type="radio" id="vote_r2" name="rn_sex" value="F"><label for="vote_r2"><span>여</span></label>
+                             </li>
+                             <li>
+                                 <input type="text" name="rn_jumin1" placeholder="생년월일 (예. 801122)" autocomplete="off" maxlength="6">
+                             </li>
+                             <li>
+                                 <select name="region">
+                                      <option value="" selected disabled>지역</option>
+                                      <option value="서울">서울</option>
+                                      <option value="경기도">경기도</option>
+                                      <option value="인천">인천</option>
+                                      <option value="대전">대전</option>
+                                      <option value="충청북도">충청북도</option>
+                                      <option value="충청남도">충청남도</option>
+                                      <option value="광주">광주</option>
+                                      <option value="전라북도">전라북도</option>
+                                      <option value="전라남도">전라남도</option>
+                                      <option value="전라남도">전라남도</option>
+                                      <option value="대구">대구</option>
+                                      <option value="경상북도">경상북도</option>
+                                      <option value="부산">부산</option>
+                                      <option value="울산">울산</option>
+                                      <option value="경상남도">경상남도</option>
+                                      <option value="강원도(통신상담)">강원도(통신상담)</option>
+                                      <option value="제주도(통신상담)">제주도(통신상담)</option>
+                                 </select>
+                             </li>
+                             <li>
+                                 <input type="tel" name="cr_mphone" id="phone_num" maxlength="11" placeholder="휴대폰 번호 ('-'없이 입력)" autocomplete="off">
+                             </li>
+                         </ul>
+                         <a href="javascript:;" id="btn_pc" onclick="validation_check('pc')"><img src="img/w20220126_topForm_2.png" alt=""><img src="img/w20220126_float_2.png" alt=""></a>
+                    </form>
+                </div>
+            </div>
+			<!-- mo 폼 -->
+			<div class="formBox mo">
+				 <h2><img src="img/m20220126_topForm_1.png" alt=""></h2>
+				 <form id="" name="" method="post">
+					  <ul>
+						  <li class="flex">
+							  <input type="text" name="rn_cust_name" placeholder="이름" autocomplete="off" maxlength="">
+							  <p>
+								  <input type="radio" id="m_vote_r1" name="rn_sex" value="M"><label for="m_vote_r1"><span>남</span></label>
+							  </p>
+							  <p>
+								  <input type="radio" id="m_vote_r2" name="rn_sex" value="F"><label for="m_vote_r2"><span>여</span></label>
+							  </p>
+						  </li>
+						  <li>
+							  <input type="text" name="rn_jumin1" placeholder="생년월일 (예. 801122)" autocomplete="off" maxlength="6">
+						  </li>
+						  <li>
+							  <select name="region">
+								   <option value="" selected disabled>지역</option>
+								   <option value="서울">서울</option>
+								   <option value="경기도">경기도</option>
+								   <option value="인천">인천</option>
+								   <option value="대전">대전</option>
+								   <option value="충청북도">충청북도</option>
+								   <option value="충청남도">충청남도</option>
+								   <option value="광주">광주</option>
+								   <option value="전라북도">전라북도</option>
+								   <option value="전라남도">전라남도</option>
+								   <option value="전라남도">전라남도</option>
+								   <option value="대구">대구</option>
+								   <option value="경상북도">경상북도</option>
+								   <option value="부산">부산</option>
+								   <option value="울산">울산</option>
+								   <option value="경상남도">경상남도</option>
+								   <option value="강원도(통신상담)">강원도(통신상담)</option>
+								   <option value="제주도(통신상담)">제주도(통신상담)</option>
+							  </select>
+						  </li>
+						  <li>
+							  <input type="tel" name="cr_mphone" id="phone_num" maxlength="11" placeholder="휴대폰 번호 ('-'없이 입력)" autocomplete="off">
+						  </li>
+					  </ul>
+					  <a href="javascript:;" id="btn_mo" onclick="validation_check('mo')"><img src="img/m20220126_topForm_2.png" alt=""></a>
+				 </form>
+			 </div>
+             <div class="formBox mo dummy" style="display: none !important; visibility: hidden; position: static !important;">
+                <h2><img src="img/m20220126_topForm_1.png" alt=""></h2>
+                <form id="" name="" method="post" style="display: block !important;">
+                     <ul>
+                         <li class="flex">
+                             <input type="text" name="rn_cust_name" placeholder="이름" autocomplete="off" maxlength="">
+                             <p>
+                                 <input type="radio" id="m_vote_r1" name="rn_sex" value="M"><label for="m_vote_r1"><span>남</span></label>
+                             </p>
+                             <p>
+                                 <input type="radio" id="m_vote_r2" name="rn_sex" value="F"><label for="m_vote_r2"><span>여</span></label>
+                             </p>
+                         </li>
+                         <li>
+                             <input type="text" name="rn_jumin1" placeholder="생년월일 (예. 801122)" autocomplete="off" maxlength="6">
+                         </li>
+                         <li>
+                             <select name="region">
+                                  <option value="" selected disabled>지역</option>
+                                  <option value="서울">서울</option>
+                                  <option value="경기도">경기도</option>
+                                  <option value="인천">인천</option>
+                                  <option value="대전">대전</option>
+                                  <option value="충청북도">충청북도</option>
+                                  <option value="충청남도">충청남도</option>
+                                  <option value="광주">광주</option>
+                                  <option value="전라북도">전라북도</option>
+                                  <option value="전라남도">전라남도</option>
+                                  <option value="전라남도">전라남도</option>
+                                  <option value="대구">대구</option>
+                                  <option value="경상북도">경상북도</option>
+                                  <option value="부산">부산</option>
+                                  <option value="울산">울산</option>
+                                  <option value="경상남도">경상남도</option>
+                                  <option value="강원도(통신상담)">강원도(통신상담)</option>
+                                  <option value="제주도(통신상담)">제주도(통신상담)</option>
+                             </select>
+                         </li>
+                         <li>
+                             <input type="tel" name="cr_mphone" id="phone_num" maxlength="11" placeholder="휴대폰 번호 ('-'없이 입력)" autocomplete="off">
+                         </li>
+                     </ul>
+                     <a href="javascript:;" id="btn_mo" onclick="return false"><img src="img/m20220126_topForm_2.png" alt=""></a>
+                </form>
+            </div>
+            <div class="inner" style="margin-top: 25px;margin-bottom: 15px;">
+               <img src="img/m20220126_visual_1.png" data-pc-src="img/w20220126_visual_1.png" data-mo-src="img/m20220126_visual_1.png" alt="">
+            </div>
+        </section>
+        <section>
+            <div class="inner">
+                <img src="img/w20220126_a_1.png" data-pc-src="img/w20220126_a_1.png" data-mo-src="img/m20220126_a_1.png" alt="">
+                <img src="img/w20220126_a_2.png" data-pc-src="img/w20220126_a_2.png" data-mo-src="img/m20220126_a_2.png" alt="">
+                <img src="img/w20220126_a_3.png" data-pc-src="img/w20220126_a_3.png" data-mo-src="img/m20220126_a_3.png" alt="">
+            </div>
+        </section>
+        <section style="background: #eeeff0;">
+            <div class="inner">
+                <img src="img/w20220126_b_1.png" data-pc-src="img/w20220126_b_1.png" data-mo-src="img/m20220126_b_1.png" alt="">
+                <img src="img/w20220126_b_2.png" data-pc-src="img/w20220126_b_2.png" data-mo-src="img/m20220126_b_2.png" alt="">
+                <img src="img/w20220126_b_3.png" data-pc-src="img/w20220126_b_3.png" data-mo-src="img/m20220126_b_3.png" alt="">
+            </div>
+        </section>
+        <section class="c">
+            <div class="inner">
+                <img src="img/w20220126_c_1.png" data-pc-src="img/w20220126_c_1.png" data-mo-src="img/m20220126_c_1.png" alt="">
+                <img src="img/w20220126_c_2.png" data-pc-src="img/w20220126_c_2.png" data-mo-src="img/m20220126_c_2.png" alt="">
+            </div>
+        </section>
+        <section  class="d" style="background: #eeeff0">
+            <div class="inner">
+                <img src="img/w20220126_d_1.png" data-pc-src="img/w20220126_d_1.png" data-mo-src="img/m20220126_d_1.png" alt="">
+                <img src="img/w20220126_d_2.png" data-pc-src="img/w20220126_d_2.png" data-mo-src="img/m20220126_d_2.png" alt="">
+                <img src="img/w20220126_d_3.png" data-pc-src="img/w20220126_d_3.png" data-mo-src="img/m20220126_d_3.png" alt="">
+            </div>
+        </section>
+        <section  class="e">
+            <div class="inner">
+                <img src="img/w20220126_e_1.png" data-pc-src="img/w20220126_e_1.png" data-mo-src="img/m20220126_e_1.png" alt="">
+                <img src="img/w20220126_e_2.png" data-pc-src="img/w20220126_e_2.png" data-mo-src="img/m20220126_e_2.png" alt="">
+            </div>
+        </section>
+        <section style="background: #221945;text-align:center">
+            <div class="inner">
+                <img src="img/w20220126_f_1.png" data-pc-src="img/w20220126_f_1.png" data-mo-src="img/m20220126_f_1.png" alt="">
+                <img src="img/w20220126_f_2.png" data-pc-src="img/w20220126_f_2.png" data-mo-src="img/m20220126_f_2.png" alt="">
+                <img src="img/w20220126_f_3.png" data-pc-src="img/w20220126_f_3.png" data-mo-src="img/m20220126_f_3.png" alt="">
+            </div>
+        </section>
+		<section class="bottom" style="background: #d31145;">
+			<!-- 하단 폼 -->
+			<div class="formBox">
+				 <h2><img src="img/w20220126_bottmForm_1.png" data-pc-src="img/w20220126_bottmForm_1.png" data-mo-src="img/m20220126_bottmForm_1.png" alt=""></h2>
+				 <form id="" class="bottom" name="" method="post">
+					  <ul>
+						  <li class="flex">
+							  <input type="text" name="rn_cust_name" placeholder="이름" autocomplete="off" maxlength="">
+							  <input type="radio" id="vote_r3" name="rn_sex" value="M"><label for="vote_r3"><span>남</span></label>
+							  <input type="radio" id="vote_r4" name="rn_sex" value="F"><label for="vote_r4"><span>여</span></label>
+						  </li>
+						  <li>
+							  <input type="text" name="rn_jumin1" placeholder="생년월일 (예. 801122)" autocomplete="off" maxlength="6">
+						  </li>
+						  <li>
+							  <select name="region">
+								   <option value="" selected disabled>지역</option>
+								   <option value="서울">서울</option>
+								   <option value="경기도">경기도</option>
+								   <option value="인천">인천</option>
+								   <option value="대전">대전</option>
+								   <option value="충청북도">충청북도</option>
+								   <option value="충청남도">충청남도</option>
+								   <option value="광주">광주</option>
+								   <option value="전라북도">전라북도</option>
+								   <option value="전라남도">전라남도</option>
+								   <option value="전라남도">전라남도</option>
+								   <option value="대구">대구</option>
+								   <option value="경상북도">경상북도</option>
+								   <option value="부산">부산</option>
+								   <option value="울산">울산</option>
+								   <option value="경상남도">경상남도</option>
+								   <option value="강원도(통신상담)">강원도(통신상담)</option>
+								   <option value="제주도(통신상담)">제주도(통신상담)</option>
+							  </select>
+						  </li>
+						  <li>
+							  <input type="tel" name="cr_mphone" id="phone_num" maxlength="11" placeholder="휴대폰 번호 ('-'없이 입력)" autocomplete="off">
+						  </li>
+					  </ul>
+					  <a href="javascript:;" id="btn_bottom" onclick="validation_check('bottom')"><img src="img/w20220126_topForm_2.png" data-pc-src="img/w20220126_topForm_2.png" data-mo-src="img/m20220126_topForm_2.png" alt=""></a>
+				 </form>
+				 <p style="margin-top: 20px"><img src="img/w20220126_bottmForm_3.png" data-pc-src="img/w20220126_bottmForm_3.png" data-mo-src="img/m20220126_bottmForm_2.png" alt="" width="100%"></p>
+			 </div>
+		</section>
+        <section class="notice" style="background: #dce1e7">
+            <p class="btn">
+               <img src="img/w20220126_footer_1.png" data-pc-src="img/w20220126_footer_1.png" data-mo-src="img/m20220126_footer_1.png" alt="">
+            </p>
+			<p class="in"> <img src="img/w20220212_notice.png" alt=""> </p>
+        </section>
+        <section class="footer" style="background: #3d3d3d">
+            <div class="inner">
+                <img src="img/w20220126_footer_2.png" data-pc-src="img/w20220126_footer_2.png" data-mo-src="img/m20220126_footer_2.png" alt="">
+            </div>
+            <ul class="sns">
+                <li><a href="https://www.facebook.com/Korea.AIA"><img src="img/m20220126_sns_1.png"></a></li>
+                <li><a href="http://www.aiablog.co.kr/"><img src="img/m20220126_sns_2.png"></a></li>
+                <li><a href="http://www.youtube.com/AIAcommunity"><img src="img/m20220126_sns_3.png"></a></li>
+            </ul>
+            <p class="copy"><img src="img/m20220126_copyright.png"></p>
+        </section>
+    </div><!-- //wrap -->
+
+	<!-- 팝업_1_개인정보 동의 -->
+	<div id="popup01" class="popup">
+    	<div class="box">
+            <h1><img src="img/w20220126_pop_1.png" alt=""></h1>
+            <a href="javascript:;" class="close"><img src="img/w20220126_pop_2.png" alt=""></a>
+			<label class="check"><input type="checkbox" name="agmtYn"><span class="tit">개인정보 수집 및 이용 동의(필수)</span></label>
+			<div class="text"> <img src="img/w20220126_pop_4.jpg" alt="" width="100%"> </div>
+            <label class="check"><input type="checkbox" name="agmtYn2"><span class="tit">광고성 정보 수신 동의(필수)</span></label>
+			<div class="text" style="height: auto"> <img src="img/w20220126_pop_4_2.jpg" alt="" width="100%"> </div>
+		    <a  href="javascript:agree_check();" onclick="" class="popBtn"><img src="img/w20220126_pop_3.png" alt=""></a>
+		</div>
+	</div>
+	<!-- 팝업_2_신청완료-->
+	<div id="popup02" class="popup">
+    	<div class="box">
+            <h1><img src="img/w20220126_pop_6.png" alt=""></h1>
+		    <a  href="javascript:;" onclick="openPopup('#popup02')" class="popBtn"><img src="img/w20220126_pop_5.png" alt=""></a>
+		</div>
+	</div>
+
+	<div id="_layerTracking" style="display:none;position:absolute;">
+	<%@ include file="/common/front/tracking/webLog_common_body.jsp"%>
+	<iframe id="_trck" title="빈프레임" name="_trck" src="" width="0" height="0" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" leftmargin="no" topmargin="no" ></iframe>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+    function validation_check(mode) {
+      const regex = [
+        ["이름", /^[A-Za-z가-힣]+$/i],
+        ["성별", /^[A-Z]{1}$/i],
+        ["생년월일", /^[0-9][0-9](0[0-9]|1[0-2])([0-2][0-9]|3[0-1])$/i],
+        ["지역", /[가-힣]+/i],
+        ["휴대폰번호", /^010[0-9]{3,4}[0-9]{4}$/i],
+      ];
+
+      if (mode == "pc") {
+        let form_data = [
+          $(".formBox.pc :input[name=rn_cust_name]"),
+          $('.formBox.pc :input[name="rn_sex"]:checked'),
+          $(".formBox.pc :input[name=rn_jumin1]"),
+          $(".formBox.pc select[name=region]"),
+          $(".formBox.pc :input[name=cr_mphone]"),
+        ];
+
+        for (let i = 0; i < regex.length; i++) {
+          if (!regex[i][1].test(form_data[i].val())) {
+            alert(`${regex[i][0]}을(를) 입력해 주세요.`);
+            form_data[i].focus();
+
+            return false;
+          }
+        }
+
+        openPopup("#popup01");
+        return true;
+      }
+
+      if (mode == "mo") {
+        let form_data = [
+          $(".formBox.mo :input[name=rn_cust_name]"),
+          $('.formBox.mo :input[name="rn_sex"]:checked'),
+          $(".formBox.mo :input[name=rn_jumin1]"),
+          $(".formBox.mo select[name=region]"),
+          $(".formBox.mo :input[name=cr_mphone]"),
+        ];
+
+        for (let i = 0; i < regex.length; i++) {
+          if (!regex[i][1].test(form_data[i].val())) {
+            alert(`${regex[i][0]}을(를) 입력해 주세요.`);
+            form_data[i].focus();
+
+            return false;
+          }
+        }
+
+        openPopup("#popup01");
+        return true;
+      }
+
+      if (mode == "bottom") {
+        let form_data = [
+          $(".bottom :input[name=rn_cust_name]"),
+          $('.bottom :input[name="rn_sex"]:checked'),
+          $(".bottom :input[name=rn_jumin1]"),
+          $(".bottom select[name=region]"),
+          $(".bottom :input[name=cr_mphone]"),
+        ];
+
+        for (let i = 0; i < regex.length; i++) {
+          if (!regex[i][1].test(form_data[i].val())) {
+            alert(`${regex[i][0]}을(를) 입력해 주세요.`);
+            form_data[i].focus();
+
+            return false;
+          }
+        }
+
+        openPopup("#popup01");
+        return true;
+      }
+    }
+
+    function agree_check() {
+
+        $("#popup01 :input[name=agmtYn]").prop("checked", true);
+        $("#popup01 :input[name=agmtYn2]").prop("checked", true);
+
+        let check1 = $("#popup01 :input[name=agmtYn]").prop("checked");
+		let check2 = $("#popup01 :input[name=agmtYn2]").prop("checked");
+
+        if( !(check1 == true) || !(check2 == true) ) {
+            openPopup("#popup01");
+            alert("약관에 동의해 주세요.");
+        }
+         else {
+            openPopup("#popup02");
+         }
+
+    }
+
+  </script>
+
+</html>
